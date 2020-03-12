@@ -1,5 +1,4 @@
-create table USER
-(
+create table USER(
     ID         bigint primary key auto_increment,
     NAME       varchar(100),
     TEL        varchar(40) unique ,

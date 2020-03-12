@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class VerificationCodeCheckService {
 
-    private Map<String,String> telNumberToCorrectCode = new ConcurrentHashMap<>();
+    private Map<String, String> telNumberToCorrectCode = new ConcurrentHashMap<>();
 
     public void addCode(String tel, String correctCode) {
         telNumberToCorrectCode.put(tel, correctCode);

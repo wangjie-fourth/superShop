@@ -1,7 +1,7 @@
 package com.wangjie.supershop.domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.*;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 
@@ -17,6 +17,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@SuppressFBWarnings("EI_EXPOSE_REP")
 public class User {
     private Long id;
     private String name;

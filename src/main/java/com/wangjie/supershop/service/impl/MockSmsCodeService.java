@@ -1,5 +1,6 @@
-package com.wangjie.supershop.service;
+package com.wangjie.supershop.service.impl;
 
+import com.wangjie.supershop.service.SmsCodeService;
 import org.springframework.stereotype.Service;
 
 /**

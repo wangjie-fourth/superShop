@@ -2,10 +2,7 @@ package com.wangjie.supershop.service;
 
 import com.wangjie.supershop.dao.UserDao;
 import com.wangjie.supershop.domain.User;
-import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.stereotype.Service;
-
-import java.sql.SQLIntegrityConstraintViolationException;
 
 @Service
 public class UserService {
