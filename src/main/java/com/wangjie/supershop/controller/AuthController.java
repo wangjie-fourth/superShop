@@ -1,12 +1,16 @@
 package com.wangjie.supershop.controller;
 
 import com.wangjie.supershop.service.AuthService;
+import com.wangjie.supershop.service.TelVerificationService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @ClassName AuthController
@@ -18,16 +22,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class AuthController {
+    private final TelVerificationService telVerificationService;
     private final AuthService authService;
 
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, TelVerificationService telVerificationService) {
         this.authService = authService;
+        this.telVerificationService = telVerificationService;
     }
 
     @PostMapping("/code")
     // 请求验证码
-    public void code(@RequestBody TelAndCode telAndCode) {
-        authService.sendVerificationCode(telAndCode.getTel());
+    public void code(@RequestBody TelAndCode telAndCode, HttpServletResponse response) {
+        if (telVerificationService.verifyTelParameter(telAndCode)) {
+            authService.sendVerificationCode(telAndCode.getTel());
+        } else {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+        }
+
     }
 
     @PostMapping("/login")
@@ -41,6 +52,11 @@ public class AuthController {
     public static class TelAndCode {
         private String tel;
         private String code;
+
+        public TelAndCode(String tel, String code) {
+            this.tel = tel;
+            this.code = code;
+        }
 
         public String getTel() {
             return tel;
